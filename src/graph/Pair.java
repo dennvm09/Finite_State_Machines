@@ -1,28 +1,28 @@
 package graph;
 
 
-public class Pareja<T> {
+public class Pair<T> {
 
-	private Vertice vertice;
+	private Vertex vertice;
 	private double peso;
 	private T ID;
 	
-	public Pareja(Vertice vertice, double peso) {
+	public Pair(Vertex vertice, double peso) {
 		this.vertice = vertice;
 		this.peso = peso;
 		ID=null;
 	}
-	public Pareja(Vertice vertice, double peso, T ID) {
+	public Pair(Vertex vertice, double peso, T ID) {
 		this.vertice = vertice;
 		this.peso = peso;
 		this.ID = ID;
 	}
 
-	public Vertice getVertice() {
+	public Vertex getVertice() {
 		return vertice;
 	}
 
-	public void setVertice(Vertice vertice) {
+	public void setVertice(Vertex vertice) {
 		this.vertice = vertice;
 	}
 

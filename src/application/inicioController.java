@@ -48,9 +48,6 @@ public class inicioController {
 	private Button btDeleteColumns;
 	@FXML
 	private TextArea tableMealy;
-	
-	
-	
 	@FXML
 	private TextField txtInputsSetsS1;
 	@FXML
@@ -70,11 +67,6 @@ public class inicioController {
 	@FXML
 	private Button btCreateRelation1;
 	
-	
-	
-	
-	
-	
 	public void initialize() {
 		paneMealy.setVisible(false);
 		paneMoore.setVisible(false);
@@ -82,6 +74,11 @@ public class inicioController {
 		rbtMoore.setOnAction(e-> checkers(-1));
 	}
 	
+	/**
+	 * Metodo encargado de devolver un arreglo con las entradas
+	 * @param inputs - cadena de texto la cual contiene las entradas del automata separadas por coma
+	 * @return fInputs - arreglo que contiene las entradas que puede recibir el automata
+	 */
 	public String[] inputSetsM(String inputs) {	
 		//la entrada me la manda el boton y son los inputs separados por comas
 		String[] fInputs = inputs.split(",");
@@ -89,8 +86,12 @@ public class inicioController {
 	}
 	
 
-	//metodo para iniciar el programa, eenvia valor a las variables globales
+	/**
+	 * Metodo utilizado para inicializar la tabla de estados en un automata de mealy
+	 * @param e - evento generado luego de presionar el boton "start"
+	 */
 	public void startP(ActionEvent e) {
+		//metodo para iniciar el programa, eenvia valor a las variables globales
 		amountSets = Integer.parseInt(txtAmountSetsQ.getText());
 		inputsSets = txtInputsSetsS.getText();
 		updateTable();
@@ -99,9 +100,11 @@ public class inicioController {
 	}
 	
 
-	
-	public void addInputs(ActionEvent e) {
-			
+	/**
+	 * Metodo utilizado para inicializar la tabla de estados en un automata de moore
+	 * @param e - evento generado luego de presionar el boton "add inputs"
+	 */
+	public void addInputs(ActionEvent e) {	
 		inputsSets1 = txtInputsSetsS1.getText();
 		updateTable1();
 		fillInputs1();
@@ -110,6 +113,10 @@ public class inicioController {
 	
 	
 	//metodo que actualiza la tabla, utiliza el metodo que separa las entradas mealy
+	/**
+	 * Metodo que actualiza la tabla de estados del automata de mealy
+	 * utiliza el metodo que devuelve un arreglo con las entradas del automata
+	 */
 	public void updateTable() {
 		String[] inputs = inputSetsM(inputsSets);
 		
@@ -128,6 +135,10 @@ public class inicioController {
 		tableMealy.setText(title);	
 	}
 	
+	/**
+	 * Metodo que actualiza la tabla de estados del automata de moore
+	 * utiliza el metodo que devuelve un arreglo con las entradas del automata
+	 */
 	public void updateTable1() {
 		String[] inputs = inputSetsM(inputsSets1);
 		
@@ -147,6 +158,10 @@ public class inicioController {
 	
 	
 	//rellenar el cbx
+	/**
+	 * Metodo utilizado para rellenar el combobox de entradas
+	 * del automata de mealy
+	 */
 	public void fillInputs() {
 		String[] inputs = inputSetsM(inputsSets);
 		ObservableList<String> items = FXCollections.observableArrayList();
@@ -156,6 +171,10 @@ public class inicioController {
 		cbxInput.setItems(items);
 	}
 	
+	/**
+	 * Metodo utilizado para rellenar el combobox de entradas
+	 * del automata de moore
+	 */
 	public void fillInputs1() {
 		String[] inputs = inputSetsM(inputsSets1);
 		ObservableList<String> items = FXCollections.observableArrayList();
@@ -165,11 +184,19 @@ public class inicioController {
 		cbxInput1.setItems(items);
 	}
 	
+	/**
+	 * Metodo que elimina los datos y permite registrar un nuevo automata de mealy
+	 * @param e - evento generado al presionar el boton "new"
+	 */
 	public void refreshMealy(ActionEvent e) {
 		tableMealy.clear();
 		cbxInput.getItems().clear();
 	}
 	
+	/**
+	 * Metodo que elimina los datos y permite registrar un nuevo automata de moore
+	 * @param e - evento generado al presionar el boton "new"
+	 */
 	public void refreshMoore(ActionEvent e) {
 		tableMoore.clear();
 		cbxInput1.getItems().clear();
@@ -194,6 +221,24 @@ public class inicioController {
 
 	
 	
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//NO ESTA LISTOOOOOOOOOOOOOOOO!! ARREGLAR
 	public void crearMaquina(ActionEvent e) {
 		
@@ -210,6 +255,9 @@ public class inicioController {
 		//strFinal += "\n" + strBegin + "               " + salida
 	
 	}
+	
+	
+	
 	
 	
 	

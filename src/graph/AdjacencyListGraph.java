@@ -8,7 +8,7 @@ import java.util.Queue;
 
 import javax.naming.ldap.HasControls;
 
-public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
+public class AdjacencyListGraph<K, V> implements IGraph<K, V> {
 	public static final double INFINITO = 10000000.0;
 	// Sirve para el DFS
 	int tiempo;
@@ -21,7 +21,7 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 	 * @param dirigido-saber si es o no dirigido
 	 */
 
-	public GrafoListaAdyacencia(boolean dirigido) {
+	public AdjacencyListGraph(boolean dirigido) {
 		verticesMap = new HashMap<K, V>();
 		this.dirigido = dirigido;
 		tiempo = 0;
@@ -32,8 +32,8 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 	 * @param k - llave que identifica el vertice.
 	 * @return Vertice
 	 */
-	public Vertice getVertice(K k) {
-		return (Vertice) verticesMap.get(k);
+	public Vertex getVertice(K k) {
+		return (Vertex) verticesMap.get(k);
 	}
 
 	/**
@@ -44,30 +44,30 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 		@SuppressWarnings("unchecked")
 		K[] listaClaves = (K[]) verticesMap.keySet().toArray();
 		for (int i = 0; i < listaClaves.length; i++) {
-			((Vertice) verticesMap.get(listaClaves[i])).setColor(Vertice.WHITE);
-			((Vertice) verticesMap.get(listaClaves[i])).setDistancia(Vertice.INFINITO);
-			((Vertice) verticesMap.get(listaClaves[i])).setPadre(null);
+			((Vertex) verticesMap.get(listaClaves[i])).setColor(Vertex.WHITE);
+			((Vertex) verticesMap.get(listaClaves[i])).setDistancia(Vertex.INFINITO);
+			((Vertex) verticesMap.get(listaClaves[i])).setPadre(null);
 		}
-		Vertice vertInicial = (Vertice) verticesMap.get(k);
-		vertInicial.setColor(Vertice.GRAY);
+		Vertex vertInicial = (Vertex) verticesMap.get(k);
+		vertInicial.setColor(Vertex.GRAY);
 		vertInicial.setDistancia(0);
 
-		Queue<Vertice> cola = new LinkedList<>();
+		Queue<Vertex> cola = new LinkedList<>();
 		cola.offer(vertInicial);
 
 		while (!cola.isEmpty()) {
-			Vertice verActual = cola.poll();
-			ArrayList<Pareja> listaAdya = verActual.getAdy();
+			Vertex verActual = cola.poll();
+			ArrayList<Pair> listaAdya = verActual.getAdy();
 			for (int i = 0; i < listaAdya.size(); i++) {
-				Vertice verticeAdy = listaAdya.get(i).getVertice();
-				if (verticeAdy.getColor() == Vertice.WHITE) {
-					verticeAdy.setColor(Vertice.GRAY);
+				Vertex verticeAdy = listaAdya.get(i).getVertice();
+				if (verticeAdy.getColor() == Vertex.WHITE) {
+					verticeAdy.setColor(Vertex.GRAY);
 					verticeAdy.setDistancia(verActual.getDistancia() + 1);
 					verticeAdy.setPadre(verActual);
 					cola.offer(verticeAdy);
 				}
 			}
-			verActual.setColor(Vertice.BLACK);
+			verActual.setColor(Vertex.BLACK);
 		}
 	}
 	
@@ -79,34 +79,34 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 		@SuppressWarnings("unchecked")
 		K[] listaClaves = (K[]) verticesMap.keySet().toArray();
 		for (int i = 0; i < listaClaves.length; i++) {
-			((Vertice) verticesMap.get(listaClaves[i])).setColor(Vertice.WHITE);
-			((Vertice) verticesMap.get(listaClaves[i])).setDistancia(Vertice.INFINITO);
-			((Vertice) verticesMap.get(listaClaves[i])).setPadre(null);
+			((Vertex) verticesMap.get(listaClaves[i])).setColor(Vertex.WHITE);
+			((Vertex) verticesMap.get(listaClaves[i])).setDistancia(Vertex.INFINITO);
+			((Vertex) verticesMap.get(listaClaves[i])).setPadre(null);
 		}
-		Vertice vertInicial = (Vertice) verticesMap.get(k);
-		vertInicial.setColor(Vertice.GRAY);
+		Vertex vertInicial = (Vertex) verticesMap.get(k);
+		vertInicial.setColor(Vertex.GRAY);
 		vertInicial.setDistancia(0);
 
-		Queue<Vertice> cola = new LinkedList<>();
+		Queue<Vertex> cola = new LinkedList<>();
 		cola.offer(vertInicial);
 
 		ArrayList response = new ArrayList();
 		response.add(vertInicial.getKey());
 		
 		while (!cola.isEmpty()) {
-			Vertice verActual = cola.poll();
-			ArrayList<Pareja> listaAdya = verActual.getAdy();
+			Vertex verActual = cola.poll();
+			ArrayList<Pair> listaAdya = verActual.getAdy();
 			for (int i = 0; i < listaAdya.size(); i++) {
-				Vertice verticeAdy = listaAdya.get(i).getVertice();
-				if (verticeAdy.getColor() == Vertice.WHITE) {
-					verticeAdy.setColor(Vertice.GRAY);
+				Vertex verticeAdy = listaAdya.get(i).getVertice();
+				if (verticeAdy.getColor() == Vertex.WHITE) {
+					verticeAdy.setColor(Vertex.GRAY);
 					response.add(verticeAdy.getKey());
 					verticeAdy.setDistancia(verActual.getDistancia() + 1);
 					verticeAdy.setPadre(verActual);
 					cola.offer(verticeAdy);
 				}
 			}
-			verActual.setColor(Vertice.BLACK);
+			verActual.setColor(Vertex.BLACK);
 		}
 		
 		return response;
@@ -123,10 +123,10 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 		a = new ArrayList();
 		if (k2 == k1) {
 			
-		} else if (((Vertice) verticesMap.get(k2)).getPadre() == null) {
+		} else if (((Vertex) verticesMap.get(k2)).getPadre() == null) {
 
 		} else
-			shortestPath(k1, (K) ((Vertice) verticesMap.get(k2)).getPadre().getKey());
+			shortestPath(k1, (K) ((Vertex) verticesMap.get(k2)).getPadre().getKey());
 		a.add(k2);
 		
 	}
@@ -137,13 +137,13 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 	public void DFS() {
 		K[] keyArray = (K[]) verticesMap.keySet().toArray();
 		for (int i = 0; i < keyArray.length; i++) {
-			((Vertice) verticesMap.get(keyArray[i])).setColor(Vertice.WHITE);
-			((Vertice) verticesMap.get(keyArray[i])).setPadre(null);
+			((Vertex) verticesMap.get(keyArray[i])).setColor(Vertex.WHITE);
+			((Vertex) verticesMap.get(keyArray[i])).setPadre(null);
 		}
 		tiempo = 0;
 		for (int i = 0; i < keyArray.length; i++) {
-			Vertice vertInicial = ((Vertice) verticesMap.get(keyArray[i]));
-			if (vertInicial.getColor() == Vertice.WHITE) {
+			Vertex vertInicial = ((Vertex) verticesMap.get(keyArray[i]));
+			if (vertInicial.getColor() == Vertex.WHITE) {
 				DFSVisit((V) vertInicial);
 			}
 		}
@@ -155,20 +155,20 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 	 */
 	public void DFSVisit(V v) {
 		tiempo = tiempo + 1;
-		((Vertice) v).setDistancia(tiempo);
-		((Vertice) v).setColor(Vertice.GRAY);
+		((Vertex) v).setDistancia(tiempo);
+		((Vertex) v).setColor(Vertex.GRAY);
 
-		ArrayList<Pareja> listaAdya = ((Vertice) v).getAdy();
+		ArrayList<Pair> listaAdya = ((Vertex) v).getAdy();
 		for (int i = 0; i < listaAdya.size(); i++) {
-			Vertice verticeAdy = listaAdya.get(i).getVertice();
-			if (verticeAdy.getColor() == Vertice.WHITE) {
-				verticeAdy.setPadre((Vertice) v);
+			Vertex verticeAdy = listaAdya.get(i).getVertice();
+			if (verticeAdy.getColor() == Vertex.WHITE) {
+				verticeAdy.setPadre((Vertex) v);
 				DFSVisit((V) verticeAdy);
 			}
 		}
-		((Vertice) v).setColor(Vertice.BLACK);
+		((Vertex) v).setColor(Vertex.BLACK);
 		tiempo = tiempo + 1;
-		((Vertice) v).setDistanciaFinal(tiempo);
+		((Vertex) v).setDistanciaFinal(tiempo);
 	}
 
 	/**
@@ -238,7 +238,7 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 				if (!estaEnS) {
 					int numeroVecinos = 0;
 					ArrayList adyacentes = null;
-					Vertice verticeU = (Vertice) verticesMap.get(u);
+					Vertex verticeU = (Vertex) verticesMap.get(u);
 					if (verticeU.getAdy() != null) {
 						adyacentes = verticeU.getAdy();
 						numeroVecinos = adyacentes.size();
@@ -251,16 +251,16 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 						// Para el problema
 						String ruta = null;
 						K vecino = null;
-						vecino = (K) ((Pareja) adyacentes.get(j)).getVertice().getKey();
+						vecino = (K) ((Pair) adyacentes.get(j)).getVertice().getKey();
 						
 						for (int j2 = 0; j2 < numeroVecinos ; j2++) {
-							K actual = (K) ((Pareja) adyacentes.get(j2)).getVertice().getKey();
+							K actual = (K) ((Pair) adyacentes.get(j2)).getVertice().getKey();
 							if (actual.equals(vecino)) {
 								
-								int pesoActual = (int) ((Pareja) adyacentes.get(j2)).getPeso();
+								int pesoActual = (int) ((Pair) adyacentes.get(j2)).getPeso();
 								if (pesoActual < menorPesoAV) {
 									menorPesoAV = pesoActual;
-									ruta = (String) ((Pareja) adyacentes.get(j2)).getID();
+									ruta = (String) ((Pair) adyacentes.get(j2)).getID();
 									
 								}
 							}
@@ -351,7 +351,7 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 					}
 				}
 				if (!estaEnS) {
-					ArrayList adyacentes = ((Vertice) verticesMap.get(u)).getAdy();
+					ArrayList adyacentes = ((Vertex) verticesMap.get(u)).getAdy();
 					int numeroVecinos = 0;
 					if (adyacentes != null)
 						numeroVecinos = adyacentes.size();
@@ -359,12 +359,12 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 					for (int j = 0; j < numeroVecinos; j++) {
 						int menorCaminoAV = Integer.MAX_VALUE;
 						K vecino = null;
-						vecino = (K) ((Pareja) adyacentes.get(j)).getVertice().getKey();
+						vecino = (K) ((Pair) adyacentes.get(j)).getVertice().getKey();
 
 						for (int j2 = 0; j2 < numeroVecinos; j2++) {
-							K actual = (K) ((Pareja) adyacentes.get(j2)).getVertice().getKey();
+							K actual = (K) ((Pair) adyacentes.get(j2)).getVertice().getKey();
 							if (actual.equals(vecino)) {
-								int pesoActual = (int) ((Pareja) adyacentes.get(j2)).getPeso();
+								int pesoActual = (int) ((Pair) adyacentes.get(j2)).getPeso();
 								if (pesoActual < menorCaminoAV) {
 									menorCaminoAV = pesoActual;
 								}
@@ -395,17 +395,17 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 		K[] keyArray = (K[]) verticesMap.keySet().toArray();
 		double[][] weights = new double[keyArray.length][keyArray.length];
 		for (int i = 0; i < keyArray.length; i++) {
-			Vertice vertice = (Vertice) verticesMap.get(keyArray[i]);
-			ArrayList<Pareja> ady = vertice.getAdy();
+			Vertex vertice = (Vertex) verticesMap.get(keyArray[i]);
+			ArrayList<Pair> ady = vertice.getAdy();
 			for (int j = 0; j < keyArray.length; j++) {
 				weights[i][j] = INFINITO;
 				if (i == j)
 					weights[i][j] = 0;
 				for (int j2 = 0; j2 < ady.size(); j2++) {
-					K verticeAComp = (K) ((Vertice) verticesMap.get(keyArray[j])).getKey();
-					K verticeAdy = (K) ((Pareja) ady.get(j2)).getVertice().getKey();
+					K verticeAComp = (K) ((Vertex) verticesMap.get(keyArray[j])).getKey();
+					K verticeAdy = (K) ((Pair) ady.get(j2)).getVertice().getKey();
 					if (verticeAdy.equals(verticeAComp)) {
-						weights[i][j] = ((Pareja) ady.get(j2)).getPeso();
+						weights[i][j] = ((Pair) ady.get(j2)).getPeso();
 					}
 				}
 			}
@@ -417,19 +417,19 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 	 * Metodo que calcula el camino  minimo entre todos los nodos, con los demas
 	 * @return paths - matriz de arreglos que contiene el camino minimo entre todos los nodos con los demas
 	 */
-	public ArrayList<Vertice<K, V>>[][] floydWarshall() {
+	public ArrayList<Vertex<K, V>>[][] floydWarshall() {
 		K[] keyArray = (K[]) verticesMap.keySet().toArray();
 		double[][] matriz = weightsMatrix().clone();
 
-		ArrayList<Vertice<K, V>>[][] paths = new ArrayList[verticesMap.size()][verticesMap.size()];
+		ArrayList<Vertex<K, V>>[][] paths = new ArrayList[verticesMap.size()][verticesMap.size()];
 
 		for (int i = 0; i < paths.length; i++) {
 			for (int j = 0; j < paths[0].length; j++) {
 				paths[i][j] = new ArrayList();
 				if (matriz[i][j] != INFINITO) {
-					paths[i][j].add((Vertice) verticesMap.get(keyArray[i]));
+					paths[i][j].add((Vertex) verticesMap.get(keyArray[i]));
 					if (i != j && !dirigido) {
-						paths[i][j].add((Vertice) verticesMap.get(keyArray[j]));
+						paths[i][j].add((Vertex) verticesMap.get(keyArray[j]));
 					}
 				}
 			}
@@ -445,9 +445,9 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 
 							matriz[j][k] = matriz[j][i] + matriz[i][k];
 
-							paths[j][k] = new ArrayList<Vertice<K, V>>();
+							paths[j][k] = new ArrayList<Vertex<K, V>>();
 							paths[j][k].addAll(paths[j][i]);
-							ArrayList<Vertice<K, V>> aux = (ArrayList<Vertice<K, V>>) paths[i][k].clone();
+							ArrayList<Vertex<K, V>> aux = (ArrayList<Vertex<K, V>>) paths[i][k].clone();
 							if (aux.size() > 0) {
 								aux.remove(0);
 							}
@@ -475,7 +475,7 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 	@Override
 	public void addVertex(V v) {
 		// TODO Auto-generated method stub
-		verticesMap.put((K) ((Vertice) v).getKey(), v);
+		verticesMap.put((K) ((Vertex) v).getKey(), v);
 		
 	}
 
@@ -486,11 +486,11 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 		if (dirigido) {
 			verticesMap.remove(key);
 		} else {
-			Vertice vAEliminar = (Vertice) verticesMap.get(key);
-			ArrayList<Pareja> parejasVAEliminar = vAEliminar.getAdy();
+			Vertex vAEliminar = (Vertex) verticesMap.get(key);
+			ArrayList<Pair> parejasVAEliminar = vAEliminar.getAdy();
 			for (int i = 0; i < parejasVAEliminar.size(); i++) {
-				Vertice vecino = parejasVAEliminar.get(i).getVertice();
-				ArrayList<Pareja> parejasVecino = vecino.getAdy();
+				Vertex vecino = parejasVAEliminar.get(i).getVertice();
+				ArrayList<Pair> parejasVecino = vecino.getAdy();
 				for (int j = 0; j < parejasVecino.size(); j++) {
 					if (parejasVecino.get(j).getVertice().equals(vAEliminar)) {
 						parejasVecino.remove(j);
@@ -513,10 +513,10 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 		// TODO Auto-generated method stub
 		
 		if (dirigido) {
-			((Vertice) verticesMap.get(k1)).addPareja((Vertice) verticesMap.get(k2), w);
+			((Vertex) verticesMap.get(k1)).addPareja((Vertex) verticesMap.get(k2), w);
 		} else {
-			((Vertice) verticesMap.get(k1)).addPareja((Vertice) verticesMap.get(k2), w);
-			((Vertice) verticesMap.get(k2)).addPareja((Vertice) verticesMap.get(k1), w);
+			((Vertex) verticesMap.get(k1)).addPareja((Vertex) verticesMap.get(k2), w);
+			((Vertex) verticesMap.get(k2)).addPareja((Vertex) verticesMap.get(k1), w);
 		}
 	}
 	
@@ -529,24 +529,24 @@ public class GrafoListaAdyacencia<K, V> implements InterfazGrafo<K, V> {
 	 */
 	public void addEdge1(K k1, K k2, double w, String ruta) {
 		if (dirigido) {
-			((Vertice) verticesMap.get(k1)).addPareja1((Vertice) verticesMap.get(k2), w, ruta);
+			((Vertex) verticesMap.get(k1)).addPareja1((Vertex) verticesMap.get(k2), w, ruta);
 		} else {
-			((Vertice) verticesMap.get(k1)).addPareja1((Vertice) verticesMap.get(k2), w, ruta);
-			((Vertice) verticesMap.get(k2)).addPareja1((Vertice) verticesMap.get(k1), w, ruta);
+			((Vertex) verticesMap.get(k1)).addPareja1((Vertex) verticesMap.get(k2), w, ruta);
+			((Vertex) verticesMap.get(k2)).addPareja1((Vertex) verticesMap.get(k1), w, ruta);
 		}
 	}
 
 	@Override
 	public void removeEdge(K k1, K k2) {
 		// TODO Auto-generated method stub
-		ArrayList<Pareja> parejas = ((Vertice) verticesMap.get(k1)).getAdy();
+		ArrayList<Pair> parejas = ((Vertex) verticesMap.get(k1)).getAdy();
 		for (int i = 0; i < parejas.size(); i++) {
 			if (parejas.get(i).getVertice().equals(verticesMap.get(k2))) {
 				parejas.remove(i);
 			}
 		}
 		if (!dirigido) {
-			ArrayList<Pareja> parejasW = ((Vertice) verticesMap.get(k2)).getAdy();
+			ArrayList<Pair> parejasW = ((Vertex) verticesMap.get(k2)).getAdy();
 			for (int i = 0; i < parejasW.size(); i++) {
 				if (parejasW.get(i).getVertice().equals(verticesMap.get(k1))) {
 					parejasW.remove(i);

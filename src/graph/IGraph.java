@@ -1,6 +1,6 @@
 package graph;
 
-public interface InterfazGrafo<K, V> {
+public interface IGraph<K, V> {
 
 	
 	
