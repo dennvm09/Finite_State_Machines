@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -48,11 +49,9 @@ public class inicioController {
 	@FXML
 	private Button btCreateRelation;
 	@FXML
-	private TableView<String> tableMealy;
-	@FXML
 	private Button btDeleteColumns;
-	
-	
+	@FXML
+	private TextArea tableMealy;
 	
 	
 	public void initialize() {
@@ -73,17 +72,26 @@ public class inicioController {
 		inputsSets = txtInputsSetsS.getText();
 		updateTable();
 		fillInputs();
-		tableMealy.setVisible(true);
+
 	}
 	//metodo que actualiza la tabla, utiliza el metodo que separa las entradas
 	public void updateTable() {
 		String[] inputs = inputSetsM(inputsSets);
-		tableMealy.getColumns().add(new TableColumn<>());
-		if(amountSets == inputs.length) {
-			for(int i = 0; i < inputs.length; i++) {
-				tableMealy.getColumns().add(new TableColumn<String, String>(inputs[i]));
+		
+		String title = "";
+		
+		for(int i = 0; i < inputs.length+1; i++) {
+			
+			if(title.isEmpty()) {
+				title += "---";
+				
+			}else {
+				title += "               "+inputs[i-1];
 			}
 		}
+		
+		tableMealy.setText(title);
+		
 	}
 	//rellenar el cbx
 	public void fillInputs() {
@@ -96,7 +104,7 @@ public class inicioController {
 	}
 	
 	public void refreshMealy(ActionEvent e) {
-		tableMealy.getColumns().clear();
+		tableMealy.clear();
 		cbxInput.getItems().clear();
 	}
 	
@@ -117,68 +125,33 @@ public class inicioController {
 		}
 	}
 
+	
+	
+	//NO ESTA LISTOOOOOOOOOOOOOOOO!! ARREGLAR
 	public void crearMaquina(ActionEvent e) {
 		
 		
-		//utilizo la clase machine
-			
+		String strBegin = txtBegin.getText();
+		String strInputSet = cbxInput.getSelectionModel().toString();
+		String strEnd = txtEnd.getText();
+		String strOutputSet = txtOutput.getText();
+		
+		String strFinal = tableMealy.getText();
+		
+		
+		
+		
+		
+		
+		
+		//final
+		//strFinal += "\n" + strBegin + "               " + salida
+	
 	}
 	
 	
 	
 	
-	public static class Machine1{
-		private final StringProperty begin;
-		private final StringProperty inputSet;
-		private final StringProperty end;
-		private final StringProperty outputSet;
-		
-		private Machine1(String strBegin, String strInputSet, String strEnd, String strOutputSet) {
-			
-			this.begin = new SimpleStringProperty(strBegin);
-			this.inputSet = new SimpleStringProperty(strInputSet);
-			this.end = new SimpleStringProperty(strEnd);
-			this.outputSet = new SimpleStringProperty(strOutputSet);
-		}
-
-		public StringProperty getBegin() {
-			return begin;
-		}
-
-		public StringProperty getInputSet() {
-			return inputSet;
-		}
-
-		public StringProperty getEnd() {
-			return end;
-		}
-
-		public StringProperty getOutputSet() {
-			return outputSet;
-		}
-		
-		public void setBegin(String strBegin) {
-			begin.set(strBegin);
-		}
-		
-		public void setInputSet(String strInputSet) {
-			inputSet.set(strInputSet);
-		}
-	
-		public void setEnd(String strEnd) {
-			end.set(strEnd);
-		}
-		
-		public void setOutputSet(String strOutputSet) {
-			outputSet.set(strOutputSet);
-		}
-		
-		
-		
-	}
-	
-	
-
 	
 
 }
