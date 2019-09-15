@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Machine {
 
@@ -12,14 +13,38 @@ public class Machine {
 	private String[][] stateTable;
 	private String initial;
 	
-	public Machine(int typeMachine, String[] inputsSets, String[][] stateTable, String initial) {
+	
+	private int cInput;
+	public HashMap<Integer, String> inputs;
+	
+	
+	public Machine() {
+		inputs = new HashMap<Integer, String>();
+		cInput = 0;
+	}
+	
+	
+	public void addInput(String input) {
+		inputs.put(cInput, input);
+		cInput++;
+	}
+
+	public void setInputs(String set) {
+		String[] inputs = set.split(",");
 		
+		for(int i = 0; i < inputs.length; i++) {
+			addInput(inputs[i]);
+		}
+	}
+	
+	
+	
+	public void inicializar(int typeMachine, String[] inputsSets, String[][] stateTable, String initial) {
 		this.typeMachine = typeMachine;
 		this.inputsSets = inputsSets;
 		this.stateTable = stateTable;
 		this.initial = initial;	
 	}
-
 	
 	public String[][] finalStateTableMealy(ArrayList<ArrayList<String>> partition){
 		

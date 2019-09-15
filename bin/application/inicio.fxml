@@ -30,10 +30,10 @@
                   <Font name="Consolas Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="64.0" text="amount of sets (Q):" />
-            <TextField fx:id="txtAmountSetsQ" layoutX="125.0" layoutY="60.0" prefHeight="25.0" prefWidth="153.0" />
-            <Label layoutX="14.0" layoutY="94.0" text="inputs sets (S):" />
-            <TextField fx:id="txtInputsSetsS" layoutX="125.0" layoutY="90.0" prefHeight="25.0" prefWidth="153.0" promptText="separated by a comma &quot;,&quot;" />
+            <Label layoutX="14.0" layoutY="64.0" text="amount of states:" />
+            <TextField fx:id="txtAmountSetsQ" layoutX="148.0" layoutY="60.0" prefHeight="25.0" prefWidth="153.0" />
+            <Label layoutX="14.0" layoutY="94.0" text="inputs sets:" />
+            <TextField fx:id="txtInputsSetsS" layoutX="148.0" layoutY="90.0" prefHeight="25.0" prefWidth="153.0" promptText="separated by a comma &quot;,&quot;" />
             <Button fx:id="btStart" layoutX="26.0" layoutY="129.0" mnemonicParsing="false" onAction="#startP" prefHeight="25.0" prefWidth="76.0" text="start" />
             <Label layoutX="26.0" layoutY="46.0" text="Sets">
                <font>
@@ -46,21 +46,46 @@
                </font>
             </Label>
             <Label layoutX="14.0" layoutY="207.0" text="begin:" />
-            <TextField fx:id="txtBegin" layoutX="125.0" layoutY="203.0" prefHeight="25.0" prefWidth="153.0" />
+            <TextField fx:id="txtBegin" layoutX="148.0" layoutY="203.0" prefHeight="25.0" prefWidth="153.0" />
             <Label layoutX="14.0" layoutY="267.0" text="end:" />
-            <TextField fx:id="txtEnd" layoutX="125.0" layoutY="263.0" prefHeight="25.0" prefWidth="153.0" />
+            <TextField fx:id="txtEnd" layoutX="148.0" layoutY="263.0" prefHeight="25.0" prefWidth="153.0" />
             <Label layoutX="14.0" layoutY="237.0" text="input:" />
             <Label layoutX="14.0" layoutY="297.0" text="output:" />
-            <TextField fx:id="txtOutput" layoutX="125.0" layoutY="293.0" prefHeight="25.0" prefWidth="153.0" />
+            <TextField fx:id="txtOutput" layoutX="148.0" layoutY="293.0" prefHeight="25.0" prefWidth="153.0" />
             <Button fx:id="btCreateRelation" layoutX="26.0" layoutY="328.0" mnemonicParsing="false" onAction="#crearMaquina" prefHeight="25.0" prefWidth="104.0" text="create relation" />
-            <ComboBox fx:id="cbxInput" layoutX="126.0" layoutY="233.0" prefHeight="25.0" prefWidth="153.0" />
-            <Button fx:id="btDeleteColumns" layoutX="152.0" layoutY="129.0" mnemonicParsing="false" onAction="#refreshMealy" prefHeight="25.0" prefWidth="69.0" text="delete" />
+            <ComboBox fx:id="cbxInput" layoutX="149.0" layoutY="233.0" prefHeight="25.0" prefWidth="153.0" />
+            <Button fx:id="btDeleteColumns" layoutX="252.0" layoutY="10.0" mnemonicParsing="false" onAction="#refreshMealy" prefHeight="25.0" prefWidth="69.0" text="new" />
             <TextArea fx:id="tabla" layoutX="16.0" layoutY="373.0" prefHeight="101.0" prefWidth="322.0" />
          </children>
       </Pane>
-      <Pane fx:id="paneMoore" layoutX="378.0" layoutY="111.0" prefHeight="389.0" prefWidth="355.0">
+      <Pane fx:id="paneMoore" layoutX="378.0" layoutY="111.0" prefHeight="516.0" prefWidth="355.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="Moore machine" underline="true">
+               <font>
+                  <Font name="Consolas Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="18.0" layoutY="73.0" text="inputs sets:" />
+            <TextField fx:id="txtInputsSetsS1" layoutX="101.0" layoutY="69.0" prefHeight="25.0" prefWidth="153.0" promptText="separated by a comma &quot;,&quot;" />
+            <Button fx:id="btAddInputs" layoutX="268.0" layoutY="69.0" mnemonicParsing="false" onAction="#addInputs" prefHeight="25.0" prefWidth="75.0" text="add inputs" />
+            <Label layoutX="18.0" layoutY="103.0" text="output state:" />
+            <TextField fx:id="txtOutputs1" layoutX="102.0" layoutY="99.0" prefHeight="25.0" prefWidth="153.0" />
+            <Button fx:id="btAddOutputs" layoutX="268.0" layoutY="99.0" mnemonicParsing="false" text="add output" />
+            <Label layoutX="19.0" layoutY="187.0" text="begin:" />
+            <TextField fx:id="txtBegin1" layoutX="153.0" layoutY="183.0" prefHeight="25.0" prefWidth="153.0" />
+            <Label layoutX="19.0" layoutY="247.0" text="end:" />
+            <TextField fx:id="txtEnd1" layoutX="153.0" layoutY="243.0" prefHeight="25.0" prefWidth="153.0" />
+            <Label layoutX="19.0" layoutY="217.0" text="input:" />
+            <ComboBox fx:id="cbxInput1" layoutX="154.0" layoutY="213.0" prefHeight="25.0" prefWidth="153.0" />
+            <Button fx:id="btCreateRelation1" layoutX="28.0" layoutY="285.0" mnemonicParsing="false" text="create relation" />
+            <TextArea fx:id="tableMoore" layoutX="13.0" layoutY="325.0" prefHeight="101.0" prefWidth="322.0" />
+            <Label layoutX="38.0" layoutY="158.0" text="Relations">
+               <font>
+                  <Font name="Consolas Bold" size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="btDeleteColumns1" layoutX="266.0" layoutY="10.0" mnemonicParsing="false" onAction="#refreshMoore" prefHeight="25.0" prefWidth="69.0" text="new" />
+            <Label layoutX="25.0" layoutY="48.0" text="Sets">
                <font>
                   <Font name="Consolas Bold" size="14.0" />
                </font>
