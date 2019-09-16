@@ -2,6 +2,7 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Machine;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,9 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 	
+	private static Machine machine;
 	
+	public Main() {}
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -23,6 +26,9 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	
+		
 	
 	public static void main(String[] args) {
 		launch(args);
