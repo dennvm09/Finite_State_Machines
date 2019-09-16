@@ -184,7 +184,7 @@ public class Machine {
 	
 	
 	/**
-	 * Metodo encargado de asegurar que el automata sea conexo
+	 * Metodo que se encarga de asegurar que el automata sea conexo
 	 */
 	public void relatedStateMachine() {
 		
@@ -207,9 +207,8 @@ public class Machine {
 	}
 	
 
-	
-	public void fillGraph(String[][] matrixInf, boolean typeMachine) {
-		if (typeMachine) {
+	public void fillGraph(String[][] matrixInf, boolean isMealy) {
+		if (isMealy) {
 			fillMealy(matrixInf);
 		}else {
 			fillMoore(matrixInf);
@@ -310,7 +309,7 @@ public class Machine {
 	}
 
 	/**
-	 * Metodo encargado de crear las particiones del automata
+	 * 
 	 * @return generalArray - arreglo contiene los arreglos tipo particion
 	 */
 	public ArrayList partition() {
@@ -444,9 +443,6 @@ public class Machine {
 	}
 
 
-	/**
-	 * Metodos get y set de la clase Machine
-	 */
 	public boolean getTypeMachine() {
 		return typeMachine;
 	}
